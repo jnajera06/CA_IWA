@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?xml-stylesheet type="text/xsl" href="PaddysCafe.xsl"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<?xml-stylesheet type="text/xsl" href="PaddysCafe.xsl" ?>
 
 <cafemenu>
 
@@ -17,7 +17,7 @@
             <price>8.50</price>
         </entree>
     </section>
-    
+
     <section name="Breakfast">
         <entree>
             <item>Two Eggs, any style</item>
@@ -70,5 +70,5 @@
             <price>7.79</price>
         </entree>
     </section>
-   
+
 </cafemenu>

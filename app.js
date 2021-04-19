@@ -8,6 +8,8 @@ var http = require('http'), //This module provides the HTTP server functionaliti
 var router = express(); //We set our routing to be handled by Express
 var server = http.createServer(router); //This is where our server gets created
 
+router.use(express.static(path.resolve(__dirname,'views'))); //We serve static content from "views" folder
+
 router.get('/', function(req, res) {
     res.writeHead(200, {'Content-Type': 'text/html'}); //We are responding to the client that the content served back is HTML and the it exists (code 200)
     var xml = fs.readFileSync('PaddysCafe.xml', 'utf8'); //We are reading in the XML file

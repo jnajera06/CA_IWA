@@ -31,6 +31,12 @@ function jsToXmlFile(filename, obj, cb) {
 
 router.get('/', function(req, res) {
 
+    res.render('index');
+    
+});
+
+router.get('/get/html', function(req, res) {
+
     res.writeHead(200, {'Content-Type': 'text/html'}); //We are responding to the client that the content served back is HTML and the it exists (code 200)
     
     var xml = fs.readFileSync('PaddysCafe.xml', 'utf8'); //We are reading in the XML file

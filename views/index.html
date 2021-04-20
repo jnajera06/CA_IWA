@@ -48,14 +48,32 @@
 
   <!-- Page Content -->
   <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h1 class="mt-5">Welcome to Paddy's Cafe</h1>
-        <p class="lead">Select your entrees from the menu below</p>
-      </div>
-      <div id="results" class="col-lg-12"></div>
-    </div>
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h1 class="mt-5">Welcome to Paddy's Cafe</h1>
+				<p class="lead">Select your entrees from the menu below</p>
+			</div>
+			<div id="results" class="col-lg-8 order-2 mb-5"></div>
+            <div class="col-lg-4 order-1">
+                <form enctype="application/json" action="/post/json" method="post">
+                    <div class="form-group">
+                        <select class="form-control" name="sec_n">
+                            <option value="0">Side Dishes</option>
+                            <option value="1">Breakfast</option>
+                            <option value="2">Lunch</option>
+                            <option value="3">Dinner</option>
+                        </select>
+                        <input class="form-control mt-3" type="text" name="item" placeholder="Item">
+                        <input class="form-control mt-3" type="text" name="price" placeholder="Price">
+                        <button type="submit" class="btn btn-primary btn-block mt-3">Submit</button>
+                    </div>
+                </form>
+            </div>
+		</div>
   </div>
+    
+  <!-- Footer -->
+
   <footer class="footer">
         <div class="container text-center"><span class="text-muted">&copy; 2020</span></div>
   </footer> 

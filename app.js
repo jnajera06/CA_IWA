@@ -5,7 +5,10 @@ var http = require('http'), //This module provides the HTTP server functionaliti
     xmlParse = require('xslt-processor').xmlParse, //This module allows us to work with XML files
     xsltProcess = require('xslt-processor').xsltProcess, //The same module allows us to utilise XSL Transformations
     xml2js = require('xml2js'); //This module does XML to JSON conversion and also allows us to get from JSON back to XML
-
+    logger = require('morgan');
+    cors = require('cors');
+    bodyParser = require('body-parser');
+    
 var router = express(); //We set our routing to be handled by Express
 var server = http.createServer(router); //This is where our server gets created
 

@@ -8,6 +8,7 @@ var http = require('http'), //This module provides the HTTP server functionaliti
     logger = require('morgan');
     cors = require('cors');
     bodyParser = require('body-parser');
+    mongoose = require('mongoose');
     
 var router = express(); //We set our routing to be handled by Express
 var server = http.createServer(router); //This is where our server gets created

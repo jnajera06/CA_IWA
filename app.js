@@ -110,3 +110,7 @@ server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function ()
     var addr = server.address();
     console.log("Server listnening at", addr.address + ":" + addr.port);
 });
+
+router.post('/hello', (req, res) => {
+    res.json({result: 'Post was sent', data: req.body});
+});

@@ -10,9 +10,15 @@ var http = require('http'), //This module provides the HTTP server functionaliti
     cors = require('cors');
     bodyParser = require('body-parser');
     mongoose = require('mongoose');
+    dotenv = require("dotenv");
 
-const dbURI = "mongodb+srv://jose:najera@cluster0.ja2ie.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+    dotenv.config();
+
+    const dbURI = process.env.MONGODB_URL
+
+
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+
         .then((result) => console.log('connected to db'))
         .catch((err) => console.log(err));
 

@@ -1,66 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <cafemenu>
-  <section name="Side Dishes">
+  <section name="Action and Adventure">
     <entree vegetarian="true">
-      <item>Potato salad</item>
-      <price>4.95</price>
+      <item>Life of Pi</item>
+      <price>8.99</price>
     </entree>
     <entree>
-      <item>Paddy's French Fries</item>
-      <price>7.50</price>
+      <item>The Three Musketeers</item>
+      <price>15.50</price>
     </entree>
     <entree>
-      <item>Huevos Rancheros</item>
-      <price>8.50</price>
+      <item>The Call of the Wild</item>
+      <price>12.50</price>
     </entree>
   </section>
-  <section name="Breakfast">
+  <section name="Classics">
     <entree>
-      <item>Two Eggs, any style</item>
-      <price>4.99</price>
+      <item>To Kill a Mockingbird</item>
+      <price>14.99</price>
     </entree>
     <entree>
-      <item>Paddy's Famous Peppers and Eggs</item>
+      <item>Little Women</item>
       <price>8.29</price>
     </entree>
     <entree vegetarian="true">
-      <item>Bowl of fruit</item>
+      <item>Beloved</item>
       <price>6.99</price>
     </entree>
-    <entree vegetarian="true">
-      <item>French Toast</item>
-      <price>5.25</price>
-    </entree>
-    <entree>
-      <item>Croaissant</item>
-      <price>3.99</price>
-    </entree>
   </section>
-  <section name="Lunch">
+  <section name="Comic Book">
     <entree>
-      <item>Grilled Chicken Sandwich</item>
+      <item>Watchmen</item>
       <price>7.99</price>
     </entree>
     <entree>
-      <item>Tuna Melt</item>
+      <item>The Walking Dead: Compendium One</item>
       <price>6.99</price>
     </entree>
     <entree vegetarian="true">
-      <item>Pasta Salad</item>
+      <item>The Boy, the Mole, the Fox and the Horse</item>
       <price>7.39</price>
     </entree>
   </section>
-  <section name="Dinner">
+  <section name="Detective and Mystery">
     <entree>
-      <item>Ribeye Steak</item>
+      <item>The Night Fire</item>
       <price>19.99</price>
     </entree>
     <entree>
-      <item>Chilean Sea Bass</item>
+      <item>The Adventures of Sherlock Holmes</item>
       <price>12.99</price>
     </entree>
     <entree vegetarian="true">
-      <item>Linguini with Grilled Porcini Mushrooms</item>
+      <item>And Then There Were None</item>
       <price>7.79</price>
     </entree>
   </section>

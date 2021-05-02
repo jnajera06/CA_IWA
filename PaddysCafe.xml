@@ -13,6 +13,10 @@
       <item>The Call of the Wild</item>
       <price>12.50</price>
     </entree>
+    <entree>
+      <item>test</item>
+      <price>1</price>
+    </entree>
   </section>
   <section name="Classics">
     <entree>

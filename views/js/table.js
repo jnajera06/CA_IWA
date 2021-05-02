@@ -11,7 +11,7 @@ function draw_table()
 			success: function (html)
 			{
 				$("#results").append(html);
-				select_row();
+				//select_row();
 			}
 		});
 	};
@@ -30,23 +30,25 @@ function select_row()
 	})
 };
 
-function delete_row(sec, ent)
+function deletebook(id)
 {
-	$("#delete").click(function ()
-	{
+	//$("#delete").click(function ()
+	//{
 		$.ajax(
 		{
 			url: "/post/delete",
 			type: "POST",
 			data:
 			{
-				section: sec,
-				entree: ent
+				id: id
 			},
 			cache: false,
-			success: setTimeout(draw_table, 1000)
+			success: function (html)
+			{
+				draw_table();
+			}
 		})
-	})
+	//})
 };
 
 $(document).ready(function ()

@@ -1,3 +1,4 @@
+//mongodb+srv://jose:<password>@cluster0.ja2ie.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 var http = require('http'), //This module provides the HTTP server functionalities
     path = require('path'), //The path module provides utilities for working with file and directory paths
     express = require('express'), //This module allows this app to respond to HTTP Requests, defines the routing and renders back the required content
@@ -9,6 +10,13 @@ var http = require('http'), //This module provides the HTTP server functionaliti
     cors = require('cors');
     bodyParser = require('body-parser');
     mongoose = require('mongoose');
+
+const dbURI = "mongodb+srv://jose:najera@cluster0.ja2ie.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+        .then((result) => console.log('connected to db'))
+        .catch((err) => console.log(err));
+
+var Book = require('./bookmodel');
     
 var router = express(); //We set our routing to be handled by Express
 var server = http.createServer(router); //This is where our server gets created
@@ -38,78 +46,136 @@ function jsToXmlFile(filename, obj, cb) {
 }
 
 router.get('/', function(req, res) {
-
-    res.render('index');
+  res.render('index');
 
 });
 
 router.get('/get/html', function(req, res) {
 
-    res.writeHead(200, {'Content-Type': 'text/html'}); //We are responding to the client that the content served back is HTML and the it exists (code 200)
+    // res.writeHead(200, {'Content-Type': 'text/html'}); //We are responding to the client that the content served back is HTML and the it exists (code 200)
 
-    var xml = fs.readFileSync('PaddysCafe.xml', 'utf8'); //We are reading in the XML file
-    var xsl = fs.readFileSync('PaddysCafe.xsl', 'utf8'); //We are reading in the XSL file
+    // var xml = fs.readFileSync('PaddysCafe.xml', 'utf8'); //We are reading in the XML file
+    // var xsl = fs.readFileSync('PaddysCafe.xsl', 'utf8'); //We are reading in the XSL file
 
-    var doc = xmlParse(xml); //Parsing our XML file
-    var stylesheet = xmlParse(xsl); //Parsing our XSL file
+    // var doc = xmlParse(xml); //Parsing our XML file
+    // var stylesheet = xmlParse(xsl); //Parsing our XSL file
 
-    var result = xsltProcess(doc, stylesheet); //This does our XSL Transformation
+    // var result = xsltProcess(doc, stylesheet); //This does our XSL Transformation
 
-    res.end(result.toString()); //Send the result back to the user, but convert to type string first
+    // res.end(result.toString()); //Send the result back to the user, but convert to type string first
+
+    Book.find({}, function (err, books) {
+
+      html = `
+          <table id="menuTable" border="1" class="indent">
+            <thead>
+                <tr>
+                    <th colspan="3">Book Catalogue</th>
+                </tr>
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+            `;
+            books.forEach(element => {
+              html += `
+              <xsl:for-each select="entree">
+                  <tr id="{`+element._id+`}">
+                      <td>
+                        <span>`+element.title+`</span>
+                      </td>
+                      <td align="right">
+                          <span>`+element.price+`</span>
+                      </td>
+                      <td align="center">
+                        <button type="button" onclick="deletebook('`+element._id+`')">Delete</button>
+                      </td>
+                  </tr>
+              </xsl:for-each>
+              `
+            });
+              
+            
+      html += `</tbody>
+        </table>
+      `;
+
+      //console.log("test");
+      //console.log(books); 
+      res.json(html);
+    }); 
 
 });
 
 router.post('/post/json', function (req, res) {
 
-    function appendJSON(obj) {
+    // function appendJSON(obj) {
 
-        console.log(obj)
+    //     console.log(obj)
 
-        xmlFileToJs('PaddysCafe.xml', function (err, result) {
-            if (err) throw (err);
+    //     xmlFileToJs('PaddysCafe.xml', function (err, result) {
+    //         if (err) throw (err);
             
-            result.cafemenu.section[obj.sec_n].entree.push({'item': obj.item, 'price': obj.price});
+    //         result.cafemenu.section[obj.sec_n].entree.push({'item': obj.item, 'price': obj.price});
 
-            console.log(JSON.stringify(result, null, "  "));
+    //         console.log(JSON.stringify(result, null, "  "));
 
-            jsToXmlFile('PaddysCafe.xml', result, function(err){
-                if (err) console.log(err);
-            });
-        });
-    };
+    //         jsToXmlFile('PaddysCafe.xml', result, function(err){
+    //             if (err) console.log(err);
+    //         });
+    //     });
+    // };
 
-    appendJSON(req.body);
+    
+      var newbook = new Book({title: req.body.item, category:req.body.sec_n, price:req.body.price});
+          newbook.save(function (err, book) {
+              //res.json(book);
+              res.redirect('back'); 
+      });
 
-    res.redirect('back');
+    //console.log(req.body);
+    //appendJSON(req.body);
+
+    //res.redirect('back');
 
 });
 
 router.post('/post/delete', function (req, res) {
 
-    function deleteJSON(obj) {
+    Book.findByIdAndRemove({_id: req.body.id}, function (err, users) {
+      if (err) {
+        res.status(400).json(err); 
+      } 
+      res.json(users);
+    }); 
 
-        console.log(obj)
+    // function deleteJSON(obj) {
 
-        xmlFileToJs('PaddysCafe.xml', function (err, result) {
-            if (err) throw (err);
+    //     console.log(obj)
+
+    //     xmlFileToJs('PaddysCafe.xml', function (err, result) {
+    //         if (err) throw (err);
             
-            delete result.cafemenu.section[obj.section].entree[obj.entree];
+    //         delete result.cafemenu.section[obj.section].entree[obj.entree];
 
-            console.log(JSON.stringify(result, null, "  "));
+    //         console.log(JSON.stringify(result, null, "  "));
 
-            jsToXmlFile('PaddysCafe.xml', result, function(err){
-                if (err) console.log(err);
-            });
-        });
-    };
+    //         jsToXmlFile('PaddysCafe.xml', result, function(err){
+    //             if (err) console.log(err);
+    //         });
+    //     });
+    // };
 
-    deleteJSON(req.body);
-
-    res.redirect('back');
+    //deleteJSON(req.body);
+    // console.log(req.body);
+    // res.redirect('back');
 
 });
 
-server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function () {
+server.listen(process.env.PORT || 3001, process.env.IP || "0.0.0.0", function () {
     var addr = server.address();
     console.log("Server listnening at", addr.address + ":" + addr.port);
 });
@@ -117,3 +183,4 @@ server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function ()
 router.post('/hello', (req, res) => {
     res.json({result: 'Post was sent', data: req.body});
 });
+
